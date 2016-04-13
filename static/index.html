@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+    <head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- THESE TWO VERSIONS BELOW MUST MATCH!!!! -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+    <script>
+        //  inject the ngRoute dependency in the module.
+        var myApp = angular.module('myApp', ['ngRoute']);
+        //  use the config method to set up routing:
+        myApp.config(function ($routeProvider) {
+            $routeProvider
+            .when('/',{
+                templateUrl: 'partials/customizeUsers.html'
+            })
+            .when('/list',{
+                templateUrl: 'partials/userList.html'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+        });
+        myApp.factory('usersFactory', function(){
+            var users = [
+                {first: 'Devon', last: 'Newsom', lang: 'Python'},
+                {first: 'Large', last: 'Marge', lang: 'C++'},
+                {first: 'BASED', last: 'GOD', lang: 'Universal'},
+            ]
+            var factory = {}
+            factory.getUsers = function(callback){
+                callback(users)
+            }
+            factory.addUser = function(user){
+                users.push(user)
+            }
+            factory.delUser = function(user){
+                users.splice(users.indexOf(user), 1)
+                console.log('deleting '+user.first)
+            }
+            return factory
+        })
+        //  build the controllers
+        myApp.controller('UserListsController', function ($scope, usersFactory){
+            usersFactory.getUsers(function (data){
+                $scope.users = data
+                console.log(data)
+            });
+        });
+        myApp.controller('CustomizeUsersController', function ($scope, usersFactory) {
+            usersFactory.getUsers(function (data){
+                $scope.users = data
+                console.log(data)
+            });
+            $scope.addUser = function(){
+                var newUser = {first: $scope.first, last: $scope.last, lang: $scope.lang}
+                usersFactory.addUser(newUser)
+                $scope.first = ''
+                $scope.last = ''
+                $scope.lang = ''
+            }
+            $scope.delUser = function(user){
+                console.log(user)
+                usersFactory.delUser(user)
+            }
+        });
+    </script>
+    </head>
+    <body>
+        <div>
+            <a href="#/">Create User</a> | <a href="#/list">List Users</a>
+            <div ng-view=""></div>
+        </div>
+    </body>
+</html>
