@@ -47,6 +47,12 @@
                 $scope.users = data
                 console.log(data)
             });
+            $scope.predicate = 'first';
+            $scope.reverse = true;
+            $scope.order = function(predicate){
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            }
         });
         myApp.controller('CustomizeUsersController', function ($scope, usersFactory) {
             usersFactory.getUsers(function (data){
@@ -63,6 +69,12 @@
             $scope.delUser = function(user){
                 console.log(user)
                 usersFactory.delUser(user)
+            }
+            $scope.predicate = 'first';
+            $scope.reverse = true;
+            $scope.order = function(predicate){
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
             }
         });
     </script>

@@ -9,12 +9,21 @@
 	<h2>USERS</h2>
     <table>
     	<tr id='head'>
-    		<th>First Name</th>
-    		<th>Last Name</th>
-    		<th>Fav Language</th>
+    		<th>
+    			<button ng-click='order("first")'>First Name</button>
+    			<span class="sortorder" ng-show="predicate === 'first'" ng-class="{reverse:reverse}"></span>
+    		</th>
+    		<th>
+    			<button ng-click='order("last")'>Last Name</button>
+    			<span class="sortorder" ng-show="predicate === 'last'" ng-class="{reverse:reverse}"></span>
+    		</th>
+    		<th>
+    			<button ng-click='order("lang")'>Fav Language</button>
+    			<span class="sortorder" ng-show="predicate === 'lang'" ng-class="{reverse:reverse}"></span>
+    		</th>
     		<th>Actions</th>
     	</tr>
-    	<tr ng-repeat='user in users'>
+    	<tr ng-repeat='user in users | orderBy:predicate:reverse'>
     		<td>{{ user.first }}</td>
     		<td>{{ user.last }}</td>
     		<td>{{ user.lang }}</td>
