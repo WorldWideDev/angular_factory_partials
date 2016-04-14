@@ -1,3 +1,37 @@
 *{
 	font-family: monospace;
 }
+input{
+	display: block;
+	margin: 0 auto;
+}
+.container{
+	width: 970px;
+	min-height: 370px;
+	text-align: center;
+	margin: 0 auto;
+}
+form{
+	border: groove 5px;
+	text-align: center;
+	margin: 0 auto;
+	width: 290px;
+	height: 153px;
+	padding-top: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+	#btn{
+		margin-top: 10px;
+	}
+	#search{
+		margin: 15px;
+	}
+table{
+	border: groove;
+	width: 400px;
+	margin: 0 auto;
+}
+	#head{
+		background-color: #B4B1B1;
+	}
